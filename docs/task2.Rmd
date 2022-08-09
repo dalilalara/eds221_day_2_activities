@@ -1,0 +1,77 @@
+---
+title: "Task 2 EDS 221"
+author: "Dalila Lara"
+date: "2022-08-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Part 1 Vectors
+
+1. Vector (vec_1)
+```{r}
+#Creating vector 
+vec_1 <- c(2, 5, 9, 10, 8, 12, 1, 0)
+
+#Checking the vector 
+class(vec_1)
+typeof(vec_1)
+
+#3rd element of the vector
+vec_1_e3 <- vec_1[3]
+vec_1_e3
+
+#1st element of the vector
+vec_1_e1 <- vec_1[1]
+vec_1_e1
+
+#5th through 7th element 
+vec_1_e5to7 <- vec_1[5:7]
+vec_1_e5to7
+
+#Reassign vec_1 to charecter
+vec_1_char <- as.character(vec_1)
+vec_1_char
+```
+
+2. Vector (vec_2)
+```{r}
+vec_2 <- c(town = "Santa Barbara", location = "Rincon", swell = "south")
+
+vec_2
+
+#Class of vectors 
+class(vec_2)
+
+#Length vectors
+length(vec_2)
+
+#Access 2nd element by name 
+vec_2_e2 <- vec_2[2]
+vec_2_e2
+```
+3. Creating a data frame 
+```{r}
+region <- c("A", "B", "A", "D")
+species <- c("otter", "great white", "sea lion", "gray whale")
+count <- c(12, 2, 36, 6)
+df_1 <- data.frame(region, species, count)
+df_1
+
+#Checking data frame class
+class(df_1)
+
+#Class of species column 
+class(df_1$species)
+class(df_1[ , 2])
+
+#Max value
+max_count <- max(df_1$count)
+max_count
+```
+
+Part 2 Wild Data in Quarto 
+
