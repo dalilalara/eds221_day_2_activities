@@ -1,0 +1,105 @@
+---
+title: "EDS 221 Task 2 Part 2"
+format: html
+editor: visual
+execute: 
+  warning: false
+---
+```{r}
+#Loading packages in
+library(tidyverse)
+library(here)
+library(janitor)
+library(wesanderson)
+```
+
+```{r}
+#Reading in the csv data
+
+wild_data <- read_csv(here("data", "AS00601.csv"))
+
+#Exploring data 
+head(wild_data)
+names(wild_data)
+glimpse(wild_data)
+
+#update names to lower case
+lower_snake_case <- clean_names(wild_data)
+names(lower_snake_case)
+```
+
+```{r}
+#extracting specific elements of the data frame
+
+#Weight column 5th value
+mc_wt_5 <- lower_snake_case$weight[5]
+mc_wt_5
+
+#Length column 8th - 20th value
+mc_length_8_20 <- lower_snake_case$length1[8:20]
+mc_length_8_20
+
+#Store everything in column sampledate as vector
+mc_dates <- c(lower_snake_case$sampledate)
+mc_dates
+```
+```{r}
+#Make a salamander subset 
+
+mc_salamander <- lower_snake_case %>%
+  filter(species == "DITE")
+
+mc_salamander
+names(mc_salamander)
+```
+
+```{r}
+#Making a scatter plot of salamander length X weight 
+salamander_plot <- ggplot(data = mc_salamander,
+       aes(x = length1,
+           y = weight)) +
+  geom_point(aes(color = "weight"), alpha = 0.25) +
+  theme_minimal() +
+  labs(title = "Salamander Snout-Vent Length vs Weight",
+       x = "Snout-Vent Length (mm)",
+       y = "Weight (g)")
+
+salamander_plot
+
+ggsave(here::here("figs", "salamander_plot.png"),
+       height = 6,
+       width = 5)
+```
+
+```{r}
+# Make a cutthroat plot
+
+#Subset mc_trout
+
+mc_trout <- lower_snake_case %>%
+  filter(species == "ONCL")
+
+names(mc_trout)
+
+mc_trout_plot <- ggplot(data = mc_trout,
+       aes(x = length1,
+           y = weight)) +
+  geom_point(aes(color = "reach")) +
+  theme_minimal() +
+  labs(title = "Trout Length vs Weight",
+       x = "Snout-Vent Length (mm)",
+       y = "Weight (g)") +
+  scale_color_manual(values = c("purple",
+                                "orange",
+                                "steelblue")) +
+  facet_wrap("reach")
+
+mc_trout_plot
+
+
+ggsave(here::here("figs", "cutthroat_size.png"),
+       height = 6,
+       width = 5)
+
+```
+
